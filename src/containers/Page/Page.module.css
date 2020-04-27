@@ -1,0 +1,16 @@
+.Page {
+  float: left;
+  padding: 20px;
+}
+.found_select{
+  margin-top: 50px;
+  width:  100%; 
+  border-spacing: 0; 
+}
+.rightcol{
+  text-align: right;
+}
+.CardContainer {
+  padding: 0 5%;
+  max-width: 80%;
+}

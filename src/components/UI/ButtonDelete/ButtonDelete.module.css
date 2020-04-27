@@ -1,0 +1,10 @@
+.ButtonDelete{
+    background-color: transparent;
+    border: none;
+    padding-top: 0px;
+    color: black;
+    width: 16px;
+    height: 16px;
+    font-weight: bold;
+    font-size: 14px;
+}

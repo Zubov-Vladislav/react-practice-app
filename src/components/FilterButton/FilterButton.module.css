@@ -1,0 +1,27 @@
+.Button {
+    display: inline-block;
+}
+
+.Button button{
+    background-color: rgb(201, 201, 201);
+    height: 40px;
+    width: 40px;
+    border: none;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    text-decoration: none;
+   
+    font-size: 16px;
+    margin: 10px 4px;
+    border-radius: 70%;
+  }
+
+  button:hover {
+    border: 1px solid rgb(90, 86, 86);
+ }
+ 
+ button:active{
+     background: #000;
+     color: #fff;
+ }
+ 
