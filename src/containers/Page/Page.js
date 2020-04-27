@@ -48,8 +48,8 @@ class Page extends Component {
  
 ButtonFilter = (value) =>{
   const filter = [...this.state.btnFilter]
-  const btnDelete
-  const id
+  let btnDelete
+  let id
   filter.forEach((key,index) => {
     if(key === value)
      btnDelete = true
@@ -90,6 +90,7 @@ StyleActivBtn = (id) => {
               key={index} 
               index={index} 
               answerBtn={answerBtn} 
+              active = {this.state.btnFilter.includes(answerBtn)}
               />
             );
           })}

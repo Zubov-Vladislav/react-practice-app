@@ -29,6 +29,7 @@
      background: rgb(197, 60, 60);
  }
  
- .active65 {
-     padding: 1000px;
+ .BtnActive {
+     background: rgb(0, 0, 0) !important; 
+     color: #fff !important;
  }

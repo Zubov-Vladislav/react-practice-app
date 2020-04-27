@@ -15,7 +15,7 @@ const FilterButton = props => {
     return (
         <div className={cl.Button}>
            <button onClick={onButtonClick}
-
+            className = {`${props.active ? cl.BtnActive : "" }`}
            >
             {props.answerBtn}   
             </button> 
