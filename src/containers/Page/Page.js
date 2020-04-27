@@ -25,6 +25,8 @@ class Page extends Component {
       },
     ],
     buttonFilter: ["XS", "S", "M", "L", "XL", "XXL"],
+    btnFilter: [],
+    buttonStyle: [false, false, false,false, false, false]
   };
 
   async componentDidMount() {
@@ -42,7 +44,39 @@ class Page extends Component {
     }
   }
 
+
+ 
+ButtonFilter = (value) =>{
+  const filter = [...this.state.btnFilter]
+  const btnDelete
+  const id
+  filter.forEach((key,index) => {
+    if(key === value)
+     btnDelete = true
+     id = index
+  })
+
+  if (btnDelete){
+    filter.splice(id,1)
+  } else {
+    filter.push(value)
+   
+  }
+  this.setState({
+    btnFilter: filter
+  })
+}
+
+
+StyleActivBtn = (id) => {
+    let Mas = this.state.buttonStyle
+    Mas[id] = !Mas[id]
+    console.log(Mas[id])
+  }
+
+
   render() {
+    console.log(this.state.availableSizes)
     return (
       <div className={classes.catalog}>
         <div className={classes.head}>
@@ -50,7 +84,13 @@ class Page extends Component {
           {this.state.buttonFilter.map((answerBtn, index) => {
             // {console.log(answerBtn, index)}
             return (
-              <FilterButton key={index} index={index} answerBtn={answerBtn} />
+              <FilterButton 
+              StyleActivBtn = {this.StyleActivBtn}
+              ButtonFilter = {this.ButtonFilter}
+              key={index} 
+              index={index} 
+              answerBtn={answerBtn} 
+              />
             );
           })}
         </div>
@@ -67,10 +107,35 @@ class Page extends Component {
             </select>
           </div>
         </div>
+        
         <div className={classes.CardContainer}>
-          {this.state.products.map((answer, index) => {
+          {(this.state.btnFilter.length == 0) ?
+          this.state.products.map((answer, index) => {
             return <Card key={index} answer={answer} />;
-          })}
+          }) 
+          :
+          // this.state.btnFilter.map((key) => {
+          //   this.state.products.availableSizes.map((answer, index) => {
+          //     if (key == answer){
+          //       return <Card key={index} answer={answer} />;
+          //     }
+          //   })
+          // })
+          this.state.products.filter((item) => {
+            let flag = false
+            item.availableSizes.forEach((size) => {
+              if (this.state.btnFilter.indexOf(size) > -1){
+                flag = true
+              }
+            
+            })
+            return flag
+          }).map((answer, index) => {
+            return <Card key={index} answer={answer} />;
+          }) 
+          
+          
+          }
         </div>
         <Cart/>
       </div>
