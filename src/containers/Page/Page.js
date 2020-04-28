@@ -5,6 +5,7 @@ import axios from "../../axios/axios-quiz";
 
 import Card from "../../components/Card/Card";
 import Cart from "../../components/Cart/Cart";
+// import Sort from "../../components/Sort/Sort"
 
 class Page extends Component {
   state = {
@@ -25,6 +26,28 @@ class Page extends Component {
       },
     ],
     buttonFilter: ["XS", "S", "M", "L", "XL", "XXL"],
+  };
+
+  onSort = (event) => {
+    const selectIndex = event.target.value;
+    const products = [...this.state.products];
+
+    switch (selectIndex) {
+      case "ascending":
+        products.sort((a, b) => {
+          return Number(a.price) - Number(b.price);
+        });
+        break;
+      case "descending":
+        products.sort((a, b) => {
+          return Number(b.price) - Number(a.price);
+        });
+        break;
+    }
+
+    this.setState({
+      products,
+    });
   };
 
   async componentDidMount() {
@@ -60,10 +83,10 @@ class Page extends Component {
           </div>
           <div>
             <p>Order</p>
-            <select>
-              <option>select</option>
-              <option>select1</option>
-              <option>select2</option>
+
+            <select onClick={this.onSort}>
+              <option value="ascending">по возрастанию цены</option>
+              <option value="descending">по убыванию цены</option>
             </select>
           </div>
         </div>
@@ -72,7 +95,7 @@ class Page extends Component {
             return <Card key={index} answer={answer} />;
           })}
         </div>
-        <Cart/>
+        <Cart />
       </div>
     );
   }

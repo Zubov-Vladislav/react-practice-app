@@ -23,7 +23,7 @@ const Card = (props) => {
           <p>
             {"or " +
               props.answer.installments +
-              " x" +
+              " x " +
               props.answer.currencyFormat +
               `${(props.answer.price / props.answer.installments).toFixed(2)}`}
           </p>
