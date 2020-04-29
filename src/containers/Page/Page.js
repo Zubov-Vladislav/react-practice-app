@@ -3,6 +3,8 @@ import classes from "./Page.module.css";
 import FilterButton from "../../components/FilterButton/FilterButton";
 import axios from "../../axios/axios-quiz";
 
+import { connect } from "react-redux";
+
 import Card from "../../components/Card/Card";
 import Cart from "../../components/Cart/Cart";
 // import Sort from "../../components/Sort/Sort"
@@ -93,6 +95,9 @@ class Page extends Component {
   };
 
   render() {
+    const products = this.props.products;
+    console.log(products);
+
     return (
       <div className={classes.catalog}>
         <div className={classes.head}>
@@ -125,7 +130,7 @@ class Page extends Component {
         </div>
 
         <div className={classes.CardContainer}>
-          {this.state.btnFilter.length == 0
+          {this.state.btnFilter.length === 0
             ? this.state.products.map((answer, index) => {
                 return <Card key={index} answer={answer} />;
               })
@@ -156,4 +161,11 @@ class Page extends Component {
   }
 }
 
-export default Page;
+const mapStateToProps = (store) => {
+  console.log(store.products); // посмотрим, что же у нас в store?
+  return {
+    products: store.products,
+  };
+};
+
+export default connect(mapStateToProps)(Page);
