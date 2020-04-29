@@ -1,20 +1,40 @@
-import React from "react";
+import React, { Component } from "react";
 import classes from "./Cart.module.css";
 import CartProduct from "../CartProduct/CartProduct"
 import ButtonCart from "../UI/ButtonCart/ButtonCart";
+import {connect} from 'react-redux';
+// import {CountPurchases} from '../../redux/actions/basket';
 
-export default (props) => (
+
+class Cart extends Component{
+ 
+   state = {
+    sumBasket: 0,
+
+
+   };
+
+   BasketCount = (num) => {
+     return num;
+   }
+
+
+render(){
+  return(
+
+  
   <div className={classes.Cart}>
     <div className={classes.icon}>
       <div className={classes.icon_img}>
         <img src={`/images/bag-icon.png`} />
-        Cart
+        <p>Cart</p>
+        <p className = {classes.Sum}>{this.props.counter}</p>  
       </div>
     </div>
 
     <div className={classes.card}>
       <CartProduct
-        
+        BasketCount = {this.BasketCount}
         id={props.id}
         sku={props.sku}
         title={props.title}
@@ -45,4 +65,39 @@ export default (props) => (
       </div>
     </div>
   </div>
-);
+)
+}
+}
+
+function mapStateToProps(state) {
+  return {
+    sumBasket: state.sumBasket
+  }
+
+  
+}
+
+function mapDispatchToProps(dispatch) {
+  return
+    CountPurchases: (sumBasket) => dispatch(CountPurchases(sumBasket))
+  
+}
+
+function CountPurchases(sumBasket) {
+  type: "COUNT_PURCHASES_SUCCESS",
+  sumBasket
+}
+
+function basketReducer(state = initialState, action) {
+  switch (action.type) {
+          case COUNT_PURCHASES_SUCCESS:
+              return {
+                  ...state, sumBasket: sumBasket + BasketCount()
+              };
+      default:
+          return state
+  }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cart)

@@ -4,7 +4,13 @@ import ButtonSum from "../UI/ButtonSum/ButtonSum";
 import ButtonDelete from "../UI/ButtonDelete/ButtonDelete";
 
 
-export default (props) => (
+ const CartProduct = (props) => {
+
+  CountNum = (num) => {
+    props.BasketCount(num)
+  }
+
+  return(
   <div className={classes.CartProduct}>
       <table>
         <tr>
@@ -18,14 +24,16 @@ export default (props) => (
             <td> 
                 <p>{props.title}</p>
                 <p>{props.style}</p>
-                <p>{`Quantity`}</p>
+                <p>{`Quantity: 55`}</p>
             </td>
             <td>
-                <ButtonDelete/>
+                <ButtonDelete CountNum = {this.CountNum}/>
                 <p>{props.currencyFormat}{props.price}</p>
-                <ButtonSum/>
+                <ButtonSum CountNum = {this.CountNum}/>
             </td>
         </tr>
       </table>
   </div>
-)
+  )
+  }
+export default CartProduct
