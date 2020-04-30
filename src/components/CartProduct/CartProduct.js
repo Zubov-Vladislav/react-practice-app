@@ -6,10 +6,11 @@ import ButtonDelete from "../UI/ButtonDelete/ButtonDelete";
 
  const CartProduct = (props) => {
 
-  CountNum = (num) => {
-    props.BasketCount(num)
+  const CountNum = (num) => {
+    props.basketCount(num)
+    
   }
-
+// console.log(props.cart)
   return(
   <div className={classes.CartProduct}>
       <table>
@@ -17,19 +18,22 @@ import ButtonDelete from "../UI/ButtonDelete/ButtonDelete";
           <td>
               <img
                 className={classes.img}
-                src={`/images/products/${props.sku}_2.jpg`}
+                src={`/images/products/${props.cart.sku}_2.jpg`}
                 alt={props.style}
               />
           </td>
             <td> 
-                <p>{props.title}</p>
-                <p>{props.style}</p>
-                <p>{`Quantity: 55`}</p>
+                <p>{props.cart.title}</p>
+                <p clasName={classes.Style}>{props.cart.style}</p>
+                <p clasName={classes.Summa}>{`Quantity: 
+                // ${props.buy}`
+                }
+                </p>
             </td>
             <td>
-                <ButtonDelete CountNum = {this.CountNum}/>
-                <p>{props.currencyFormat}{props.price}</p>
-                <ButtonSum CountNum = {this.CountNum}/>
+                <ButtonDelete/>
+                <p>{props.currencyFormat}{props.cart.price}</p>
+                <ButtonSum CountNum = {CountNum}/>
             </td>
         </tr>
       </table>
