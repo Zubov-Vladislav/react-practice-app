@@ -1,7 +1,25 @@
 .CartProduct{
-    background: #3e5ea1;
+    background: #141d31;
 }
 
 .CartProduct td{
     margin: 0px;
+}
+
+.img {
+    height: 70px;
+    width: 50px;
+}
+
+.Style {
+    font-size: 6px;
+}
+
+.Summa {
+    font-size: 6px;
+    color: #300d0d;
+}
+
+.Cart:hover {
+ background: #fff solid 2px;
 }

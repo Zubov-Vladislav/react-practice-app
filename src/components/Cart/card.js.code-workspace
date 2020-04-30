@@ -1,0 +1,32 @@
+{
+	"folders": [
+		{
+			"path": "..\\..\\..\\..\\..\\..\\..\\..\\JS\\ReactP\\react-quiz\\config"
+		},
+		{
+			"path": "..\\..\\..\\..\\..\\..\\..\\..\\JS\\ReactP\\react-quiz\\public"
+		},
+		{
+			"path": "..\\..\\..\\..\\..\\..\\..\\..\\JS\\ReactP\\react-quiz\\node_modules"
+		},
+		{
+			"path": "..\\..\\..\\..\\..\\..\\..\\..\\JS\\ReactP\\react-quiz\\scripts"
+		},
+		{
+			"path": "..\\..\\..\\..\\..\\..\\..\\..\\JS\\ReactP\\react-quiz\\src"
+		},
+		{
+			"path": "..\\..\\..\\..\\..\\..\\..\\..\\JS\\ReactP\\react-quiz\\hoc"
+		},
+		{
+			"path": "..\\..\\..\\..\\..\\..\\..\\..\\JS\\RP"
+		},
+		{
+			"path": "..\\..\\..\\..\\..\\..\\..\\..\\JS\\Prac\\work\\src"
+		},
+		{
+			"path": "..\\..\\..\\..\\..\\..\\..\\..\\JS\\Prac\\work\\Pructic\\src"
+		}
+	],
+	"settings": {}
+}
