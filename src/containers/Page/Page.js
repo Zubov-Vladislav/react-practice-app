@@ -1,17 +1,21 @@
 import React, { Component } from "react";
 import classes from "./Page.module.css";
 import FilterButton from "../../components/FilterButton/FilterButton";
-import axios from "../../axios/axios-quiz";
 
 import { connect } from "react-redux";
+import axios from "../../axios/axios-quiz";
 
 import Card from "../../components/Card/Card";
 import Cart from "../../components/Cart/Cart";
+
+import {
+  addProductsToList,
+  getProductsList,
+} from "../../store/reducers/products";
 // import Sort from "../../components/Sort/Sort"
 
 class Page extends Component {
   state = {
-    products: [],
     cart: [
       {
         id: 12,
@@ -31,29 +35,6 @@ class Page extends Component {
     btnFilter: [],
     buttonStyle: [false, false, false, false, false, false],
   };
-
-  // onSort = (event) => {
-  //   const selectIndex = event.target.value;
-  //   const products = [...this.state.products];
-
-  //   // switch (selectIndex) {
-  //   //   case "ascending":
-  //   //     products.sort((a, b) => {
-  //   //       return Number(a.price) - Number(b.price);
-  //   //     });
-  //   //     break;
-  //   //   case "descending":
-  //   //     products.sort((a, b) => {
-  //   //       return Number(b.price) - Number(a.price);
-  //   //     });
-  //   //     break;
-  //   // }
-
-  //   this.setState({
-  //     products,
-  //   });
-  // };
-
   async componentDidMount() {
     try {
       const response = await axios.get(
@@ -61,47 +42,20 @@ class Page extends Component {
       );
       const cards = [...response.data.products];
 
-      this.setState({
-        products: cards,
-      });
+      this.props.addProductsToList(cards);
     } catch (e) {
       console.log(e);
     }
   }
 
-  ButtonFilter = (value) => {
-    const filter = [...this.state.btnFilter];
-    let btnDelete;
-    let id;
-    filter.forEach((key, index) => {
-      if (key === value) btnDelete = true;
-      id = index;
-    });
-
-    if (btnDelete) {
-      filter.splice(id, 1);
-    } else {
-      filter.push(value);
-    }
-    this.setState({
-      btnFilter: filter,
-    });
-  };
-
-  StyleActivBtn = (id) => {
-    let Mas = this.state.buttonStyle;
-    Mas[id] = !Mas[id];
-    console.log(Mas[id]);
-  };
-
   render() {
     const products = this.props.products;
-    console.log(products);
 
     return (
       <div className={classes.catalog}>
         <div className={classes.head}>
           <p>Sizes:</p>
+
           {this.state.buttonFilter.map((answerBtn, index) => {
             return (
               <FilterButton
@@ -117,7 +71,7 @@ class Page extends Component {
         </div>
         <div className={classes.filter}>
           <div>
-            <p>{this.state.products.length || 0} Product(s)</p>
+            <p>{products.length || 0} Product(s)</p>
           </div>
           <div>
             <p>Order</p>
@@ -130,30 +84,9 @@ class Page extends Component {
         </div>
 
         <div className={classes.CardContainer}>
-          {this.state.btnFilter.length === 0
-            ? this.state.products.map((answer, index) => {
-                return <Card key={index} answer={answer} />;
-              })
-            : // this.state.btnFilter.map((key) => {
-              //   this.state.products.availableSizes.map((answer, index) => {
-              //     if (key == answer){
-              //       return <Card key={index} answer={answer} />;
-              //     }
-              //   })
-              // })
-              this.state.products
-                .filter((item) => {
-                  let flag = false;
-                  item.availableSizes.forEach((size) => {
-                    if (this.state.btnFilter.indexOf(size) > -1) {
-                      flag = true;
-                    }
-                  });
-                  return flag;
-                })
-                .map((answer, index) => {
-                  return <Card key={index} answer={answer} />;
-                })}
+          {products.map((answer, index) => {
+            return <Card key={index} answer={answer} />;
+          })}
         </div>
         <Cart />
       </div>
@@ -162,10 +95,15 @@ class Page extends Component {
 }
 
 const mapStateToProps = (store) => {
-  console.log(store.products); // посмотрим, что же у нас в store?
   return {
-    products: store.products,
+    products: getProductsList(store),
   };
 };
 
-export default connect(mapStateToProps)(Page);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addProductsToList: (list) => dispatch(addProductsToList(list)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Page);
