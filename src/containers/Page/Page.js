@@ -84,8 +84,8 @@ class Page extends Component {
         </div>
 
         <div className={classes.CardContainer}>
-          {products.map((answer, index) => {
-            return <Card key={index} answer={answer} />;
+          {products.map((id, index) => {
+            return <Card key={index} id={id} />;
           })}
         </div>
         <Cart />

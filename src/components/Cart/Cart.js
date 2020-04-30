@@ -51,7 +51,7 @@ render()
 
 {
 const cart = this.props.cart
-console.log(cart)
+
   return(
 
   

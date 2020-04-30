@@ -1,10 +1,13 @@
 export function getProductsList(store) {
-  return store.products.list;
+  return store.products.list.map((product) => product.id);
 }
 const initialState = {
   isLoading: false,
   list: [],
 };
+export function getProductById(store, productId) {
+  return store.products.list.find((product) => product.id === productId);
+}
 
 export function reducer(state = initialState, action) {
   switch (action.type) {

@@ -7,10 +7,10 @@ const FilterButton = props => {
         props.ButtonFilter(NameButton)
     }
 
-    const styleBtn = () =>{
-        const IdBtn = props.index
-        props.StyleActivBtn(IdBtn)
-    }
+    // const styleBtn = () =>{
+    //     const IdBtn = props.index
+    //     props.StyleActivBtn(IdBtn)
+    // }
 
     return (
         <div className={cl.Button}>
