@@ -1,33 +1,35 @@
 import React from "react";
 import classes from "./Card.module.css";
+import { connect } from "react-redux";
+import { getProductById } from "../../store/reducers/products";
 
 const Card = (props) => {
-
   return (
-    
     <div className={classes.App}>
       <div className={classes.Pok}>
         <div className={classes.Img}>
           <a href={`/images/products/${props.sku}_1.jpg`}>
             <img
               className={classes.img}
-              src={`/images/products/${props.answer.sku}_2.jpg`}
+              src={`/images/products/${props.product.sku}_2.jpg`}
               alt={props.style}
             />
           </a>
         </div>
         <div className={classes.Name}>
-          <p>{props.answer.title}</p>
+          <p>{props.product.title}</p>
           <hr></hr>
           <p className={classes.Buy}>
-            {props.answer.currencyFormat + props.answer.price}
+            {props.product.currencyFormat + props.product.price}
           </p>
           <p>
             {"or " +
-              props.answer.installments +
+              props.product.installments +
               " x " +
-              props.answer.currencyFormat +
-              `${(props.answer.price / props.answer.installments).toFixed(2)}`}
+              props.product.currencyFormat +
+              `${(props.product.price / props.product.installments).toFixed(
+                2
+              )}`}
           </p>
         </div>
         <div className={classes.Button}>
@@ -38,4 +40,16 @@ const Card = (props) => {
   );
 };
 
-export default Card;
+const mapStateToProps = (store, ownProps) => {
+  return {
+    product: getProductById(store, ownProps.id),
+  };
+};
+
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     addProductsToList: (list) => dispatch(addProductsToList(list)),
+//   };
+// };
+
+export default connect(mapStateToProps, null)(Card);

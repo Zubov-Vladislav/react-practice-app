@@ -1,8 +1,8 @@
 export function сountPurchases(sumBasket) {
-  return{
-  type: "COUNT_PURCHASES_SUCCESS",
-  sumBasket
-  }
+  return {
+    type: "COUNT_PURCHASES_SUCCESS",
+    sumBasket,
+  };
 }
 //вынести в экшены
 

@@ -38,7 +38,7 @@ const {
   products
 } = this.props;
 
-console.log(this.props.product)
+
   return(
 
   
