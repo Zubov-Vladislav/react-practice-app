@@ -4,12 +4,24 @@ import ButtonSum from "../UI/ButtonSum/ButtonSum";
 import ButtonDelete from "../UI/ButtonDelete/ButtonDelete";
 
 
- const CartProduct = (props) => {
+ const CartProduct = ({product, deleteBasketToCart, productQuantityIncrement, productQuantityDecrement } ) => {
 
-  const CountNum = (num) => {
-    props.basketCount(num)
+
+  
+  const deleteProductFromCart = () => {
+    deleteBasketToCart(product.id)
     
   }
+
+  const CountNumPlus = () => {
+    productQuantityIncrement(product.id)
+    
+  }
+
+  const CountNumMinus = () => {
+    productQuantityDecrement(product.id)
+  }
+
 // console.log(props.cart)
   return(
   <div className={classes.CartProduct}>
@@ -18,22 +30,28 @@ import ButtonDelete from "../UI/ButtonDelete/ButtonDelete";
           <td>
               <img
                 className={classes.img}
-                src={`/images/products/${props.cart.sku}_2.jpg`}
-                alt={props.style}
+                src={`/images/products/${product.sku}_2.jpg`}
+                alt={product.style}
               />
           </td>
             <td> 
-                <p>{props.cart.title}</p>
-                <p clasName={classes.Style}>{props.cart.style}</p>
+                <p>{product.title}</p>
+                <p clasName={classes.Style}>{product.style}</p>
                 <p clasName={classes.Summa}>{`Quantity: 
-                // ${props.buy}`
+                // ${product.quantity}
+                `
                 }
                 </p>
             </td>
             <td>
-                <ButtonDelete/>
-                <p>{props.currencyFormat}{props.cart.price}</p>
-                <ButtonSum CountNum = {CountNum}/>
+                <ButtonDelete
+                deleteProductFromCart={deleteProductFromCart}
+                />
+                <p>{product.currencyFormat}{product.price}</p>
+                <ButtonSum 
+                CountNumPlus={CountNumPlus}
+                CountNumMinus={CountNumMinus}
+                />
             </td>
         </tr>
       </table>

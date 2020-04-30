@@ -4,27 +4,19 @@ import classes from "./ButtonSum.module.css";
 const ButtonSum = (props) => {
   const cls = [classes.ButtonSum, classes[props.type]];
 
-const BtnSum = () => {
-const number = 1;
-props.CountNum(number) 
 
-}
-
-const BtnMinus = () => {
-  const number = -1;
-  props.CountNum(number) 
-}
 
 
   return (
   <div>
     <button 
-    onClick = {BtnSum}
+    onClick = {props.CountNumPlus}
+    //передать надо
     className={cls.join(" ")}>
       -
       </button>
     <button 
-    onClick = {BtnMinus}
+    onClick = {props.CountNumMinus}
     className={cls.join(" ")}>
       +
       </button>

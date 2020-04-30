@@ -3,55 +3,42 @@ import classes from "./Cart.module.css";
 import CartProduct from "../CartProduct/CartProduct"
 import ButtonCart from "../UI/ButtonCart/ButtonCart";
 import {connect} from 'react-redux';
-import {сountPurchases} from '../../store/reducers/cart'
+import {
+  сountPurchasesPlus,
+  сountPurchasesMinus,
+  getProductId,
+  deleteFromCart
+} from '../../store/reducers/cart'
 
 // import {CountPurchases} from '../../redux/actions/basket';
 
 
 class Cart extends Component{
- state = {
-  products: [
-    {
-      "id": 12,
-      "sku": 12064273040195392,
-      "title": "Cat Tee Black T-Shirt",
-      "description": "4 MSL",
-      "availableSizes": ["S", "XS"],
-      "style": "Black with custom print",
-      "price": 10.9,
-      "installments": 9,
-      "currencyId": "USD",
-      "currencyFormat": "$",
-      "isFreeShipping": true
-    },
 
-    {
-      "id": 13,
-      "sku": 51498472915966366,
-      "title": "Dark Thug Blue-Navy T-Shirt",
-      "description": "",
-      "availableSizes": ["M"],
-      "style": "Front print and paisley print",
-      "price": 29.45,
-      "installments": 5,
-      "currencyId": "USD",
-      "currencyFormat": "$",
-      "isFreeShipping": true
-    },
-  ]
- }
-
-   basketCount = (num) => {
-     this.props.сountPurchases(num);
+productQuantityIncrement = (id) => {
+    return this.props.сountPurchasesPlus(id);
      
    }
+
+productQuantityDecrement = (id) => {
+    return this.props.сountPurchasesMinus(id);
+    
+  }
+
+  deleteProductFromCart(id) {
+    return this.props.deleteFromCart(id)
+  }
 
 
 render()
 
 {
-const cart = this.props.cart
-console.log(cart)
+// const cart = this.props.cart
+const {
+  products
+} = this.props;
+
+console.log(this.props.product)
   return(
 
   
@@ -60,7 +47,8 @@ console.log(cart)
       <div className={classes.icon_img}>
         <img src={`/images/bag-icon.png`} />
         <p>Cart</p>
-        <p className = {classes.Sum}>f{this.props.sumBasket}
+        <p className = {classes.Sum}>f
+        {this.props.sumBasket}
    
         </p>  
       </div>
@@ -68,18 +56,23 @@ console.log(cart)
 
     <div className={classes.card}>
 
-    {this.state.products.map((cart, index) => {
+     {products.map((product, index) => {
             // {console.log(answerBtn, index)}
             return (
               <CartProduct 
-              basketCount = {this.basketCount}
+              productQuantityIncrement = {this.productQuantityIncrement}
+              productQuantityDecrement = {this.productQuantityDecrement}
+              deleteProductFromCart = {this.deleteProductFromCart}
               key={index} 
               index={index} 
-              cart={cart} 
-            
+              product={product} 
+              // idCartBasket = {product.id}
+              // quantityBasket = {product.quatity}
+
+             // count = { ,.,.,.,.,.,.}
               />
             );
-          })}
+          })} 
 
 
 
@@ -137,7 +130,12 @@ console.log(cart)
 
 function mapStateToProps(state) {
   return {
-    sumBasket: state.sumBasket
+    products: state.cart.products.map(product => {
+    return {
+      ...getProductId(product.id),
+      quantity: product.quantity
+    } 
+    })
   }
 
   
@@ -145,7 +143,10 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    сountPurchases: (sumBasket) => dispatch(сountPurchases(sumBasket))
+    сountPurchasesPlus: (id) => dispatch(сountPurchasesPlus(id)),
+    сountPurchasesMinus: (id) => dispatch(сountPurchasesMinus(id)),
+    deleteFromCart : (id) => dispatch(deleteFromCart(id)),
+    //сountPurchases: (sumBasket) => dispatch(сountPurchases(sumBasket))
     //добавить еще один
   }
 }
