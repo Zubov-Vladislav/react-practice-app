@@ -15,11 +15,11 @@ const initialState = {
 
 export function reducer(state = initialState, action) {
   switch (action.type) {
-          case 'COUNT_PURCHASES_SUCCESS': 
+          case 'COUNT_PURCHASES_SUCCESS':
           console.log(state)
               return {
                   ...state, sumBasket: state.sumBasket + action.sumBasket
-              };  
+              };
 
       default:
           return state
