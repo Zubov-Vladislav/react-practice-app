@@ -36,10 +36,7 @@ export function сountPurchasesMinus(id) {
 
 
 const initialState = {
-  products: [{
-    id:1,
-    quantity:2
-  }]
+  products: []
 }
 
 
