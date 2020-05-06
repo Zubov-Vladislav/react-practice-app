@@ -16,16 +16,18 @@ import {
 class Cart extends Component{
 
 productQuantityIncrement = (id) => {
+  
     return this.props.сountPurchasesPlus(id);
      
    }
 
 productQuantityDecrement = (id) => {
-    return this.props.сountPurchasesMinus(id);
+
+  return this.props.сountPurchasesMinus(id);
     
   }
 
-  deleteProductFromCart(id) {
+  deleteBasketToCart = (id) => {
     return this.props.deleteFromCart(id)
   }
 
@@ -33,14 +35,17 @@ productQuantityDecrement = (id) => {
 render()
 
 {
+
+
+
 // const cart = this.props.cart
 const {
   products
 } = this.props;
-
+//console.log('Gl', globalState)
 
   return(
-
+    
   
   <div className={classes.Cart}>
     <div className={classes.icon}>
@@ -62,10 +67,11 @@ const {
               <CartProduct 
               productQuantityIncrement = {this.productQuantityIncrement}
               productQuantityDecrement = {this.productQuantityDecrement}
-              deleteProductFromCart = {this.deleteProductFromCart}
+              deleteBasketToCart = {this.deleteBasketToCart}
               key={index} 
               index={index} 
               product={product} 
+              
               // idCartBasket = {product.id}
               // quantityBasket = {product.quatity}
 
@@ -132,7 +138,7 @@ function mapStateToProps(state) {
   return {
     products: state.cart.products.map(product => {
     return {
-      ...getProductId(product.id),
+      ...getProductId(state, product.id),
       quantity: product.quantity
     } 
     })
@@ -146,8 +152,7 @@ function mapDispatchToProps(dispatch) {
     сountPurchasesPlus: (id) => dispatch(сountPurchasesPlus(id)),
     сountPurchasesMinus: (id) => dispatch(сountPurchasesMinus(id)),
     deleteFromCart : (id) => dispatch(deleteFromCart(id)),
-    //сountPurchases: (sumBasket) => dispatch(сountPurchases(sumBasket))
-    //добавить еще один
+    
   }
 }
 
