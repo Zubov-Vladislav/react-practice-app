@@ -1,13 +1,17 @@
 import axios from "axios";
 
+const defaultSizes = ["XS", "S", "M", "L", "XL", "XXL"];
+
 export function getProductsList(store) {
-  return store.products.list.map((product) => product.id);
+  const filteredList = filterSize(store.products);
+
+  return filteredList.map((product) => product.id);
 }
 
 const initialState = {
   isLoading: true,
   list: [],
-  sizes: [],
+  sizes: defaultSizes.slice(0),
   buttonFilter: [
     {
       value: "XS",
@@ -15,7 +19,7 @@ const initialState = {
     },
     {
       value: "S",
-      active: true,
+      active: false,
     },
     {
       value: "M",
@@ -49,12 +53,10 @@ export function handlesFilterSize(size) {
   };
 }
 
-export function addInSizes(store) {
-  console.log(store);
-  filterSize(store);
-  const sizes = store.sizes;
+export function addInSizes(buttonFilters, sizes) {
+  const filters = buttonFilters;
+  console.clear();
 
-  const filters = store.buttonFilter;
   filters.forEach((el) => {
     const position = sizes.indexOf(el.value);
     if (position === -1 && el.active) {
@@ -63,16 +65,20 @@ export function addInSizes(store) {
       sizes.splice(position, 1);
     }
   });
-  return sizes;
+
+  const isFilters = filters.reduce((accumulator, el) => {
+    return (accumulator = accumulator || el.active);
+  }, false);
+
+  const result = isFilters ? sizes : ["XS", "S", "M", "L", "XL", "XXL"];
+  return result;
 }
 
-  
 export function handlerFilter(store = initialState, value) {
   const buttonFilter = store.buttonFilter;
 
   const newButtonFilter = buttonFilter.map((filter) => {
     if (filter.value === value) {
-      console.log(filter);
       return {
         ...filter,
         active: !filter.active,
@@ -80,32 +86,20 @@ export function handlerFilter(store = initialState, value) {
     }
     return filter;
   });
-
   return newButtonFilter;
 }
 
 export function filterSize(store) {
-  function inArray(arr) {
-    return function (x) {
-      return arr.includes(x);
-    };
-  }
-  const filter = []
-  console.log(filter);
-  
-  store.list.forEach((list) => {
-    // console.log(list.availableSizes.filter(inArray(store.sizes)).length);
-    let filters = []
-    console.log(filters);
-    
-    if (list.availableSizes.filter(inArray(store.sizes)).length === 0) {
-      
-      
-    } else {
-      filter.push(store.list)
-    }
+  const sizes = store.sizes;
+  let products = store.list;
+
+  products = products.filter((productItem) => {
+    return sizes.find((filterItem) =>
+      productItem.availableSizes.find((size) => size === filterItem)
+    );
   });
-  
+
+  return products;
 }
 
 export function reducer(state = initialState, action) {
@@ -131,10 +125,11 @@ export function reducer(state = initialState, action) {
       };
     }
     case "HANDLES_FILTER_SIZE": {
+      const newButtonFilter = handlerFilter(state, action.size);
       return {
         ...state,
-        buttonFilter: handlerFilter(state, action.size),
-        sizes: addInSizes(state),
+        buttonFilter: newButtonFilter,
+        sizes: addInSizes(newButtonFilter, state.sizes),
       };
     }
     default:
