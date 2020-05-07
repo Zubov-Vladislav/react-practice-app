@@ -4,25 +4,23 @@ import ButtonSum from "../UI/ButtonSum/ButtonSum";
 import ButtonDelete from "../UI/ButtonDelete/ButtonDelete";
 
 
- const CartProduct = ({product, deleteBasketToCart, productQuantityIncrement, productQuantityDecrement } ) => {
+ const CartProduct = ({state, product, deleteBasketToCart, productQuantityIncrement, productQuantityDecrement } ) => {
 
 
   
   const deleteProductFromCart = () => {
     deleteBasketToCart(product.id)
-    
   }
 
   const CountNumPlus = () => {
     productQuantityIncrement(product.id)
-    
   }
 
   const CountNumMinus = () => {
     productQuantityDecrement(product.id)
   }
 
-// console.log(props.cart)
+
   return(
   <div className={classes.CartProduct}>
       <table>
