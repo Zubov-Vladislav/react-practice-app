@@ -42,6 +42,11 @@ class Page extends Component {
     ],
   };
 
+  onSort = (event) =>{
+    console.log(event.target.value)
+  }
+  
+
   handlerFilter = (value) => {
     const buttonFilter = this.state.buttonFilter;
     const newButtonFilter = buttonFilter.map((filter) => {
@@ -96,7 +101,10 @@ class Page extends Component {
               <div>
                 <p>Order</p>
 
-                <select onClick={this.onSort}>
+                <select 
+                className = {classes.select}
+                onClick={this.onSort}
+                >
                   <option value="ascending">по возрастанию цены</option>
                   <option value="descending">по убыванию цены</option>
                 </select>

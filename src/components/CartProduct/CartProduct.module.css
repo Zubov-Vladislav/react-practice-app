@@ -1,5 +1,5 @@
 .CartProduct{
-    background: #141d31;
+    background: #1b1927;
 }
 
 .CartProduct td{
@@ -16,7 +16,7 @@
 }
 
 .Summa {
-    font-size: 12px;
+    font-size: 11px;
     color: #ffffff;
 }
 
@@ -25,7 +25,10 @@
 }
 
 .st {
-    background: rgb(82, 29, 29) ;
-    font-size: 20px ;
-    color: rgb(148, 20, 20) ;
+    text-decoration: line-through;
+}
+
+.borderStyle {
+    background: #0c0b16;
+    border: 1px solid #fff;
 }

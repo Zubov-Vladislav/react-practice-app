@@ -87,7 +87,7 @@ const {
             return (
               acc + (cur.quantity * cur.price)
             )
-          }, 0 )}
+          }, 0 ).toFixed(2)}
 
             </div>
             <div className={classes.orupto}>OR UP TO 5 X $ 6.40</div>

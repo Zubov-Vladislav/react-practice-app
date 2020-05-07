@@ -21,7 +21,7 @@ import ButtonDelete from "../UI/ButtonDelete/ButtonDelete";
 
 
   return(
-  <div className={classes.CartProduct}>
+  <div className={classes.CartProduct, `${deleteStyle ? classes.borderStyle : " "}`}>
       <table>
         <tr>
           <td>
@@ -32,8 +32,8 @@ import ButtonDelete from "../UI/ButtonDelete/ButtonDelete";
               />
           </td>
             <td> 
-                <p>{product.title}</p>
-                <p className={classes.Style}>{product.style}</p>
+                <p className = {`${deleteStyle ? classes.st : " "}`}>{product.title}</p>
+                <p className={classes.Style, `${deleteStyle ? classes.st : " "}` }>{product.style}</p>
                 <p className={classes.Summa, `${deleteStyle ? classes.st : " "}`}>{`Quantity: 
                 ${product.quantity}
                 `
@@ -51,7 +51,7 @@ import ButtonDelete from "../UI/ButtonDelete/ButtonDelete";
                 deleteProductFromCart={deleteProductFromCart}
                 />
                 </div>
-                <p>{product.currencyFormat}{`${(product.price).toFixed(2)}`}</p>
+                <p className= {`${deleteStyle ? classes.st : " "}`}>{product.currencyFormat}{`${(product.price).toFixed(2)}`}</p>
                 <ButtonSum 
                 CountNumPlus={CountNumPlus}
                 CountNumMinus={CountNumMinus}
