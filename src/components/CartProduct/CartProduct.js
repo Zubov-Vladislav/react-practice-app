@@ -6,7 +6,9 @@ import ButtonDelete from "../UI/ButtonDelete/ButtonDelete";
 
  const CartProduct = ({state, product, deleteBasketToCart, productQuantityIncrement, productQuantityDecrement } ) => {
 
-
+  const deleteStyle = () => {
+    return classes.st;
+  }
   
   const deleteProductFromCart = () => {
     deleteBasketToCart(product.id)
@@ -34,18 +36,19 @@ import ButtonDelete from "../UI/ButtonDelete/ButtonDelete";
           </td>
             <td> 
                 <p>{product.title}</p>
-                <p clasName={classes.Style}>{product.style}</p>
-                <p clasName={classes.Summa}>{`Quantity: 
-                // ${product.quantity}
+                <p className={classes.Style}>{product.style}</p>
+                <p className={classes.Summa, `${deleteStyle}`}>{`Quantity: 
+                ${product.quantity}
                 `
                 }
                 </p>
             </td>
             <td>
                 <ButtonDelete
+                deleteStyle = {deleteStyle}
                 deleteProductFromCart={deleteProductFromCart}
                 />
-                <p>{product.currencyFormat}{product.price}</p>
+                <p>{product.currencyFormat}{`${(product.price).toFixed(2)}`}</p>
                 <ButtonSum 
                 CountNumPlus={CountNumPlus}
                 CountNumMinus={CountNumMinus}

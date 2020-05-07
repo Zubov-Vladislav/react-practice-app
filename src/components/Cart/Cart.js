@@ -33,17 +33,10 @@ productQuantityDecrement = (id) => {
 
 
 render()
-
 {
-
-
-
-// const cart = this.props.cart
 const {
   products
 } = this.props;
-//console.log('Gl', globalState)
-
   return(
     
   
@@ -52,8 +45,16 @@ const {
       <div className={classes.icon_img}>
         <img src={`/images/bag-icon.png`} />
         <p>Cart</p>
-        <p className = {classes.Sum}>f
-        {this.props.sumBasket}
+        <p className = {classes.Sum}>
+          {
+          
+          products.reduce((acc, cur) => {
+           
+            return (
+              acc + cur.quantity
+            )
+          }, 0 )}
+          
    
         </p>  
       </div>
@@ -62,7 +63,6 @@ const {
     <div className={classes.card}>
 
      {products.map((product, index) => {
-            // {console.log(answerBtn, index)}
             return (
               <CartProduct 
               productQuantityIncrement = {this.productQuantityIncrement}
@@ -71,48 +71,9 @@ const {
               key={index} 
               index={index} 
               product={product} 
-              
-              // idCartBasket = {product.id}
-              // quantityBasket = {product.quatity}
-
-             // count = { ,.,.,.,.,.,.}
               />
             );
           })} 
-
-
-
-
-{/* 
-      <CartProduct
-        basketCount = {this.basketCount}
-        id={this.props.id}
-        sku={this.props.sku}
-        title={this.props.title}
-        description={this.props.description}
-        availableSizes={this.props.availableSizes}
-        style={this.props.style}
-        price={this.props.price}
-        installments={this.props.installments}
-        currencyId={this.props.currencyId}
-        currencyFormat={this.props.currencyFormat}
-        isFreeShipping={this.props.isFreeShipping}
-      />
-      
-      <CartProduct
-        basketCount = {this.basketCount}
-        id={this.props.id}
-        sku={this.props.sku}
-        title={this.props.title}
-        description={this.props.description}
-        availableSizes={this.props.availableSizes}
-        style={this.props.style}
-        price={this.props.price}
-        installments={this.props.installments}
-        currencyId={this.props.currencyId}
-        currencyFormat={this.props.currencyFormat}
-        isFreeShipping={this.props.isFreeShipping}
-      /> */}
     
     </div>
     <div className={classes.checout}>
@@ -120,7 +81,15 @@ const {
         <tr>
           <td className={classes.subtotal}> SUBTOTAL</td>
           <td className={classes.rightcol}>
-            <div className={classes.color_yellow}>$32</div>
+            <div className={classes.color_yellow}>
+            {
+           products.reduce((acc, cur) => {
+            return (
+              acc + (cur.quantity * cur.price)
+            )
+          }, 0 )}
+
+            </div>
             <div className={classes.orupto}>OR UP TO 5 X $ 6.40</div>
           </td>
         </tr>

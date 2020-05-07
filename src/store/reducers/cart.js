@@ -4,7 +4,7 @@ export function сountPurchases(sumBasket) {
     sumBasket,
   };
 }
-//вынести в экшены
+
 
 export function deleteFromCart(id) {
   return{
@@ -48,7 +48,7 @@ const initialState = {
 
 
 export function getProductId(globalState, id) {
-  return globalState.products.list.find(products => products.id == id);
+  return globalState.products.list.find(products => products.id === id);
 }
 
 
@@ -58,7 +58,7 @@ export function reducer(state = initialState, action) {
     
         
               case 'ADD_PRODUCT_TO_CART': {
-                const adding_product = state.product.findIndex(products => products.id == action.id)
+                const adding_product = state.product.findIndex(products => products.id === action.id)
                 if(adding_product === -1) {
                 return {
                   ...state,
@@ -67,57 +67,41 @@ export function reducer(state = initialState, action) {
               }
               }
               case 'COUNT_PURCHASES_PLUS':{
-          
- 
-                const foundedProductIndex = state.products.findIndex(products => products.id == action.id);
+                const foundedProductIndex = state.products.findIndex(products => products.id === action.id);
                 const newCart = [...state.products]; 
                 newCart.splice(foundedProductIndex, 1, {
                   ...state.products[foundedProductIndex],
                   quantity: state.products[foundedProductIndex].quantity + 1
                 })
-                console.log(foundedProductIndex)
               return {
-               
                   ...state,
                   products: newCart,
-                 
               };
             }
               case 'COUNT_PURCHASES_MINUS':{
-         
-                const foundedProductInd = state.products.findIndex(products => products.id == action.id);
-               
-                if (state.products[foundedProductInd].quantity != 1){
-            
+                const foundedProductInd = state.products.findIndex(products => products.id === action.id);
+                if (state.products[foundedProductInd].quantity !== 1){
                   const newCartt = [...state.products];
                   newCartt.splice(foundedProductInd, 1, {
                     ...state.products[foundedProductInd],
                     quantity: state.products[foundedProductInd].quantity - 1
                   })
-                  return {
-               
-                    ...state,
+                  return {    
+                   ...state,
                     products: newCartt,
-                   
                 };
               } 
             }
                 case 'DELETE_TO_CART': {
-        
-                const foundedProductInd = state.products.findIndex(products => products.id == action.id);
+                const foundedProductInd = state.products.findIndex(products => products.id === action.id);
                 const newCart = [...state.products];
                 newCart.splice(foundedProductInd, 1)
                 return {
-               
                   ...state,
                   products: newCart,
-                 
               };
                 }
               
-             
-              
-            
           default:
           return state
   

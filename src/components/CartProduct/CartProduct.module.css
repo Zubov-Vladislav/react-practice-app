@@ -12,14 +12,20 @@
 }
 
 .Style {
-    font-size: 6px;
+    font-size: 12px;
 }
 
 .Summa {
-    font-size: 6px;
-    color: #300d0d;
+    font-size: 12px;
+    color: #ffffff;
 }
 
 .Cart:hover {
  background: #fff solid 2px;
+}
+
+.st {
+    background: rgb(82, 29, 29);
+    font-size: 20px;
+    color: rgb(148, 20, 20);
 }
