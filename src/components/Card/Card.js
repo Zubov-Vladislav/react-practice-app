@@ -2,7 +2,7 @@ import React from "react";
 import classes from "./Card.module.css";
 import { connect } from "react-redux";
 import { getProductById } from "../../store/reducers/products";
-import{addProductToCart} from "../../store/reducers/cart"
+import { addProductToCart } from "../../store/reducers/cart";
 
 const Card = (props) => {
   return (
@@ -34,7 +34,9 @@ const Card = (props) => {
           </p>
         </div>
         <div className={classes.Button}>
-          <button onClick ={()=>props.addProductToCart(props.product.id)}>В корзину</button>
+          <button onClick={() => props.addProductToCart(props.product.id)}>
+            В корзину
+          </button>
         </div>
       </div>
     </div>

@@ -43,7 +43,7 @@ class Page extends Component {
   };
 
   onSort = (event) =>{
-    console.log(event.target.value)
+    //console.log(event.target.value)
   }
   
 
