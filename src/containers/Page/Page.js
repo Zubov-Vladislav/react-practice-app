@@ -5,10 +5,10 @@ import Loader from "../../components/UI/Loader/Loader";
 import { connect } from "react-redux";
 import Card from "../../components/Card/Card";
 import Cart from "../../components/Cart/Cart";
+
 import {
   addProductsToList,
   getProductsList,
-  handlerFilter,
 } from "../../store/reducers/products";
 
 class Page extends Component {
@@ -129,39 +129,15 @@ const mapStateToProps = (store) => {
   return {
     products: getProductsList(store),
     isLoading: store.products.isLoading,
-    sizes: [],
-    buttonFilter: [
-      {
-        value: "XS",
-        active: true,
-      },
-      {
-        value: "S",
-        active: false,
-      },
-      {
-        value: "M",
-        active: false,
-      },
-      {
-        value: "L",
-        active: false,
-      },
-      {
-        value: "XL",
-        active: false,
-      },
-      {
-        value: "XXL",
-        active: false,
-      },
-    ],
+    sizes: store.products.sizes,
+    buttonFilter: store.products.buttonFilter
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     addProductsToList: (list) => dispatch(addProductsToList(list)),
+    
   };
 };
 
