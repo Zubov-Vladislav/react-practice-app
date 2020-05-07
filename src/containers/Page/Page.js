@@ -8,29 +8,56 @@ import Cart from "../../components/Cart/Cart";
 import {
   addProductsToList,
   getProductsList,
+  handlerFilter,
 } from "../../store/reducers/products";
 
 class Page extends Component {
   state = {
-    cart: [
+    cart: [],
+    buttonFilter: [
       {
-        id: 12,
-        sku: 12064273040195392,
-        title: "Cat Tee Black T-Shirt",
-        description: "4 MSL",
-        availableSizes: ["S", "XS"],
-        style: "Black with custom print",
-        price: 10.9,
-        installments: 9,
-        currencyId: "USD",
-        currencyFormat: "$",
-        isFreeShipping: true,
+        value: "XS",
+        active: false,
+      },
+      {
+        value: "S",
+        active: false,
+      },
+      {
+        value: "M",
+        active: false,
+      },
+      {
+        value: "L",
+        active: false,
+      },
+      {
+        value: "XL",
+        active: false,
+      },
+      {
+        value: "XXL",
+        active: false,
       },
     ],
-    buttonFilter: ["XS", "S", "M", "L", "XL", "XXL"],
-    btnFilter: [],
-    buttonStyle: [false, false, false, false, false, false],
   };
+
+  handlerFilter = (value) => {
+    const buttonFilter = this.state.buttonFilter;
+    const newButtonFilter = buttonFilter.map((filter) => {
+      if (filter.value === value) {
+        return {
+          ...filter,
+          active: !filter.active,
+        };
+      }
+      return filter;
+    });
+    this.setState({
+      buttonFilter: newButtonFilter,
+    });
+  }
+
   async componentDidMount() {
     try {
       this.props.addProductsToList();
@@ -50,16 +77,14 @@ class Page extends Component {
           <div>
             <div className={classes.head}>
               <p>Sizes:</p>
-
-              {this.state.buttonFilter.map((answerBtn, index) => {
+              
+              {this.props.buttonFilter.map((buttonFilter, index) => {
+                
                 return (
                   <FilterButton
-                    StyleActivBtn={this.StyleActivBtn}
-                    ButtonFilter={this.ButtonFilter}
                     key={index}
-                    index={index}
-                    answerBtn={answerBtn}
-                    active={this.state.btnFilter.includes(answerBtn)}
+                    buttonFilter={buttonFilter}
+                    handlerFilter={this.handlerFilter}
                   />
                 );
               })}
@@ -96,6 +121,33 @@ const mapStateToProps = (store) => {
   return {
     products: getProductsList(store),
     isLoading: store.products.isLoading,
+    sizes: [],
+    buttonFilter: [
+      {
+        value: "XS",
+        active: true,
+      },
+      {
+        value: "S",
+        active: false,
+      },
+      {
+        value: "M",
+        active: false,
+      },
+      {
+        value: "L",
+        active: false,
+      },
+      {
+        value: "XL",
+        active: false,
+      },
+      {
+        value: "XXL",
+        active: false,
+      },
+    ],
   };
 };
 
