@@ -5,10 +5,10 @@ import Loader from "../../components/UI/Loader/Loader";
 import { connect } from "react-redux";
 import Card from "../../components/Card/Card";
 import Cart from "../../components/Cart/Cart";
+
 import {
   addProductsToList,
   getProductsList,
-  
 } from "../../store/reducers/products";
 
 class Page extends Component {
@@ -129,6 +129,7 @@ const mapStateToProps = (store) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     addProductsToList: (list) => dispatch(addProductsToList(list)),
+    
   };
 };
 
