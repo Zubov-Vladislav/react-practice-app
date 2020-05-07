@@ -1,14 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import classes from "./CartProduct.module.css";
 import ButtonSum from "../UI/ButtonSum/ButtonSum";
 import ButtonDelete from "../UI/ButtonDelete/ButtonDelete";
 
 
  const CartProduct = ({state, product, deleteBasketToCart, productQuantityIncrement, productQuantityDecrement } ) => {
-
-  const deleteStyle = () => {
-    return classes.st;
-  }
+  const [deleteStyle,setDeleteStyle] = useState(false)
   
   const deleteProductFromCart = () => {
     deleteBasketToCart(product.id)
@@ -37,17 +34,23 @@ import ButtonDelete from "../UI/ButtonDelete/ButtonDelete";
             <td> 
                 <p>{product.title}</p>
                 <p className={classes.Style}>{product.style}</p>
-                <p className={classes.Summa, `${deleteStyle}`}>{`Quantity: 
+                <p className={classes.Summa, `${deleteStyle ? classes.st : " "}`}>{`Quantity: 
                 ${product.quantity}
                 `
                 }
                 </p>
             </td>
             <td>
+              <div 
+               onMouseOver = {() => {setDeleteStyle(true)}}
+               onMouseOut = {() => {setDeleteStyle(false)}}
+               >
                 <ButtonDelete
-                deleteStyle = {deleteStyle}
+               
+               
                 deleteProductFromCart={deleteProductFromCart}
                 />
+                </div>
                 <p>{product.currencyFormat}{`${(product.price).toFixed(2)}`}</p>
                 <ButtonSum 
                 CountNumPlus={CountNumPlus}
