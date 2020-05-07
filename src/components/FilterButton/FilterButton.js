@@ -1,27 +1,26 @@
 import React from "react";
 import cl from "./FilterButton.module.css";
+import { connect } from "react-redux";
+import { handlesFilterSize } from "../../store/reducers/products";
 
 const FilterButton = (props) => {
-  const onButtonClick = (event) => {
-    const NameButton = event.target.innerText;
-    props.ButtonFilter(NameButton);
+  const onButtonClick = () => {
+    props.handlesFilterSize(props.buttonFilter.value);
   };
-
-  // const styleBtn = () =>{
-  //     const IdBtn = props.index
-  //     props.StyleActivBtn(IdBtn)
-  // }
-
   return (
-    <div className={cl.Button}>
-      <button
-        onClick={onButtonClick}
-        className={`${props.active ? cl.BtnActive : ""}`}
-      >
-        {props.answerBtn}
-      </button>
-    </div>
+    <button
+      onClick={onButtonClick}
+      className={`${props.buttonFilter.active ? cl.active : cl.Button}`}
+    >
+      {props.buttonFilter.value}
+    </button>
   );
 };
 
-export default FilterButton;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    handlesFilterSize: (sizes) => dispatch(handlesFilterSize(sizes)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(FilterButton);

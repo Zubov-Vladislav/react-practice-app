@@ -1,35 +1,34 @@
 .Button {
-    display: inline-block;
+  display: inline-block;
+  background-color: rgb(201, 201, 201);
+  height: 40px;
+  width: 40px;
+  border: none;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  text-decoration: none;
+
+  font-size: 16px;
+  margin: 10px 4px;
+  border-radius: 70%;
 }
 
-.Button button{
-    background-color: rgb(201, 201, 201);
-    height: 40px;
-    width: 40px;
-    border: none;
-    color: rgb(0, 0, 0);
-    text-align: center;
-    text-decoration: none;
-   
-    font-size: 16px;
-    margin: 10px 4px;
-    border-radius: 70%;
-  }
+.Button:hover {
+  border: 1px solid rgb(90, 86, 86);
+}
 
-  button:hover {
-    border: 1px solid rgb(90, 86, 86);
- }
- 
- button:active{
-     background: #000;
-     color: #fff;
- }
 
- .active {
-     background: rgb(197, 60, 60);
- }
- 
- .BtnActive {
-     background: rgb(0, 0, 0) !important; 
-     color: #fff !important;
- }
+
+.active {
+  display: inline-block;
+  background-color: black;
+  color: white;
+  height: 40px;
+  width: 40px;
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  margin: 10px 4px;
+  border-radius: 70%;
+}
