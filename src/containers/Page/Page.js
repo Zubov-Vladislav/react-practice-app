@@ -9,6 +9,8 @@ import Cart from "../../components/Cart/Cart";
 import {
   addProductsToList,
   getProductsList,
+  ascendingSort,
+  descendingSort,
 } from "../../store/reducers/products";
 
 class Page extends Component {
@@ -42,10 +44,17 @@ class Page extends Component {
     ],
   };
 
-  onSort = (event) =>{
-    //console.log(event.target.value)
-  }
-  
+  onSort = (event) => {
+    const selectIndex = event.target.value;
+    switch (selectIndex) {
+      case "ascending":
+        this.props.ascendingSort();
+        break;
+      case "descending":
+        this.props.descendingSort();
+        break;
+    }
+  };
 
   handlerFilter = (value) => {
     const buttonFilter = this.state.buttonFilter;
@@ -61,7 +70,7 @@ class Page extends Component {
     this.setState({
       buttonFilter: newButtonFilter,
     });
-  }
+  };
 
   async componentDidMount() {
     try {
@@ -82,9 +91,8 @@ class Page extends Component {
           <div>
             <div className={classes.head}>
               <p>Sizes:</p>
-              
+
               {this.props.buttonFilter.map((buttonFilter, index) => {
-                
                 return (
                   <FilterButton
                     key={index}
@@ -101,10 +109,7 @@ class Page extends Component {
               <div>
                 <p>Order</p>
 
-                <select 
-                className = {classes.select}
-                onClick={this.onSort}
-                >
+                <select className={classes.select} onClick={this.onSort}>
                   <option value="ascending">по возрастанию цены</option>
                   <option value="descending">по убыванию цены</option>
                 </select>
@@ -130,14 +135,15 @@ const mapStateToProps = (store) => {
     products: getProductsList(store),
     isLoading: store.products.isLoading,
     sizes: store.products.sizes,
-    buttonFilter: store.products.buttonFilter
+    buttonFilter: store.products.buttonFilter,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     addProductsToList: (list) => dispatch(addProductsToList(list)),
-    
+    ascendingSort: () => dispatch(ascendingSort()),
+    descendingSort: () => dispatch(descendingSort()),
   };
 };
 

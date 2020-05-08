@@ -53,6 +53,22 @@ export function handlesFilterSize(size) {
   };
 }
 
+export function ascendingSort() {
+  return (dispatch) => {
+    dispatch({
+      type: "ASCENDING_SORT",
+    });
+  };
+}
+
+export function descendingSort() {
+  return (dispatch) => {
+    dispatch({
+      type: "DESCENDING_SORT",
+    });
+  };
+}
+
 export function addInSizes(buttonFilters, sizes) {
   const filters = buttonFilters;
   console.clear();
@@ -132,6 +148,25 @@ export function reducer(state = initialState, action) {
         sizes: addInSizes(newButtonFilter, state.sizes),
       };
     }
+    case "ASCENDING_SORT": {
+      let newComp = state.list.sort((a, b) => {
+        return Number(a.price) - Number(b.price);
+      });
+      return {
+        ...state,
+        list: newComp,
+      };
+    }
+    case "DESCENDING_SORT": {
+      let newComp = state.list.sort((a, b) => {
+        return Number(b.price) - Number(a.price);
+      });
+      return {
+        ...state,
+        list: newComp,
+      };
+    }
+
     default:
       return state;
   }
